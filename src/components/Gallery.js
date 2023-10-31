@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import data from "../data/Data";
 export default function Gallery() {
 	const [images, setImages] = useState(data);
-
+	const [checkboxValues, setCheckboxValues] = useState({});
 	const [draggedImage, setDraggedImage] = useState(null);
+
+	const handleCheckboxChange = (imageId, isChecked) => {
+		setCheckboxValues((prevValues) => ({
+			...prevValues,
+			[imageId]: isChecked,
+		}));
+	};
 
 	const handleDragStart = (e, id) => {
 		setDraggedImage(id);
@@ -30,10 +37,12 @@ export default function Gallery() {
 		setDraggedImage(null);
 	};
 
+	console.log(checkboxValues);
+
 	return (
 		<div className="bg-gray-100 min-h-screen p-4">
 			<h1 className="text-2xl mb-4">Gallery</h1>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+			<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 				{images.map((image, index) => (
 					<div
 						key={image.id}
@@ -45,7 +54,8 @@ export default function Gallery() {
 						onDragOver={(e) => e.preventDefault()}>
 						<input
 							type="checkbox"
-							className="absolute  h-5 w-10 top-5 left-5 z-100 opacity-0 group-hover:opacity-100"
+							onChange={(e) => handleCheckboxChange(image.id, e.target.checked)}
+							className="absolute h-[10%] w-[10%] top-5 left-5 z-50 opacity-0 group-hover:opacity-100"
 						/>
 
 						<img
