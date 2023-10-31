@@ -37,16 +37,22 @@ export default function Gallery() {
 		setDraggedImage(null);
 	};
 
-	console.log(checkboxValues);
+	const countSelectedCheckboxes = Object.values(checkboxValues).filter(
+		(isChecked) => isChecked
+	).length;
+
+	console.log(countSelectedCheckboxes);
 
 	return (
 		<div className="bg-gray-100 min-h-screen p-4">
-			<h1 className="text-2xl mb-4">Gallery</h1>
+			<h1 className="text-2xl mb-4">
+				Selected Files : {countSelectedCheckboxes}
+			</h1>
 			<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 				{images.map((image, index) => (
 					<div
 						key={image.id}
-						className={`group p-2 relative bg-white rounded-lg border transition-opacity hover:opacity-30  duration-300 cursor-pointer ${
+						className={`group p-2 relative bg-white rounded-lg border transition-opacity hover:opacity-30 cursor-pointer duration-300 ${
 							index == 0 ? "border-4 border-blue-500 col-span-2 row-span-2" : ""
 						} ${image.isSelected ? "bg-gray-300" : ""}`}
 						onDragStart={(e) => handleDragStart(e, image.id)}
@@ -55,7 +61,9 @@ export default function Gallery() {
 						<input
 							type="checkbox"
 							onChange={(e) => handleCheckboxChange(image.id, e.target.checked)}
-							className="absolute h-[10%] w-[10%] top-5 left-5 z-50 opacity-0 group-hover:opacity-100"
+							className={`absolute h-[10%] w-[10%] top-5 left-5 z-20 ${
+								checkboxValues[image.id] ? "opacity-100" : "opacity-0"
+							} group-hover:opacity-100 cursor-pointer transition-opacity duration-300`}
 						/>
 
 						<img
