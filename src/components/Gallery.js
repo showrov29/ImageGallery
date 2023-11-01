@@ -51,7 +51,7 @@ export default function Gallery() {
 
 	return (
 		<div className="bg-gray-100 min-h-screen p-4">
-			<div className="flex items-center justify-between mb-4">
+			<div className="flex h-12 items-center justify-between mb-4">
 				<h1
 					className={`text-2xl font-bold ${
 						countSelectedCheckboxes == 0 && "gradient-text text-3xl "
