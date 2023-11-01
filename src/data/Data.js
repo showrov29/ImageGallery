@@ -59,5 +59,11 @@ const data = [
 		isFeature: false,
 		isSelected: false,
 	},
+	{
+		id: 11,
+		src: "../../assets/image-11.jpeg",
+		isFeature: false,
+		isSelected: false,
+	},
 ];
 export default data;
