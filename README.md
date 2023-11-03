@@ -1,5 +1,7 @@
 # Click the link below the see the full documentation for this project
 [Image Gallety documentation](https://github.com/showrov29/ImageGallery/wiki/React-Image-Gallery)
+
+
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
