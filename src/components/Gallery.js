@@ -5,6 +5,7 @@ export default function Gallery() {
 	const [checkboxValues, setCheckboxValues] = useState({});
 	const [draggedImage, setDraggedImage] = useState(null);
 	const [targetImageIndex, setTargetImageIndex] = useState(null);
+	document.title = "Image Gallery";
 
 	const deleteSelectedImage = () => {
 		const newImages = images.filter((image) => !checkboxValues[image.id]);
