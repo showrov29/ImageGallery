@@ -22,11 +22,6 @@ code {
 	-webkit-background-clip: text;
 	color: transparent;
 }
-.image-dragged {
-	transform: scale(1.1);
-	transition: transform 0.3s ease-in-out;
-	z-index: 1;
-}
 
 .dropable-image {
 	transform: scale(0.9);

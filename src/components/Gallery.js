@@ -4,6 +4,7 @@ export default function Gallery() {
 	const [images, setImages] = useState(data);
 	const [checkboxValues, setCheckboxValues] = useState({});
 	const [draggedImage, setDraggedImage] = useState(null);
+	const [targetImageIndex, setTargetImageIndex] = useState(null);
 
 	const deleteSelectedImage = () => {
 		const newImages = images.filter((image) => !checkboxValues[image.id]);
@@ -18,6 +19,10 @@ export default function Gallery() {
 		}));
 	};
 
+	const handleDragOver = (e, index) => {
+		e.preventDefault();
+		setTargetImageIndex(index);
+	};
 	const handleDragStart = (e, id) => {
 		setDraggedImage(id);
 	};
@@ -54,16 +59,15 @@ export default function Gallery() {
 				// newImages[targetImageIndex].isDropable = true;
 			}
 		}
+		setTargetImageIndex(null);
 	};
 
 	const countSelectedCheckboxes = Object.values(checkboxValues).filter(
 		(isChecked) => isChecked
 	).length;
 
-	console.log(countSelectedCheckboxes);
-
 	return (
-		<div className="bg-gray-100 min-h-screen p-4">
+		<div className="bg-gray-100 min-h-screen px-8">
 			<div className="flex h-12 items-center justify-between mb-4">
 				<h1
 					className={`text-2xl font-bold ${
@@ -71,7 +75,7 @@ export default function Gallery() {
 					}`}>
 					{countSelectedCheckboxes > 1
 						? `${countSelectedCheckboxes} Files Selected`
-						: countSelectedCheckboxes == 1
+						: countSelectedCheckboxes === 1
 						? `${countSelectedCheckboxes} File Selected`
 						: "Gallery"}
 				</h1>
@@ -96,10 +100,14 @@ export default function Gallery() {
 								: ""
 						} ${image.isSelected ? "bg-gray-300" : ""}} ${
 							image.id === draggedImage ? "image-dragged" : ""
-						}'`}
+						}'  ${
+							targetImageIndex === index
+								? " scale-105 border-gray-300 border-4 duration-300"
+								: ""
+						}`}
 						onDragStart={(e) => handleDragStart(e, image.id)}
 						onDrop={(e) => handleDrop(e, image.id)}
-						onDragOver={(e) => e.preventDefault()}>
+						onDragOver={(e) => handleDragOver(e, index)}>
 						<input
 							type="checkbox"
 							onChange={(e) => handleCheckboxChange(image.id, e.target.checked)}
@@ -111,7 +119,9 @@ export default function Gallery() {
 						<img
 							src={image.src}
 							alt={`Image ${image.id}`}
-							className={`max-w-full mx-auto transition-all duration-300 ease-in-out transform`}
+							className={`max-w-full mx-auto transition-all duration-300 ease-in-out transform ${
+								targetImageIndex == index && "hidden"
+							}`}
 						/>
 					</div>
 				))}
